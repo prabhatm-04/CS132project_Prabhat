@@ -59,16 +59,16 @@ class Transaction:
         self.due_date = due_date
 
     def checkout_book(self):
-        # Implement logic for checking out a book
+        # to implement condition for checking out a book
         if self.book.quantity > 0:
             self.book.quantity -= 1
             self.patron.borrow_book(self.book)
-            self.due_date = datetime.now() + timedelta(days=14)  # Due in 14 days
+            self.due_date = datetime.now() + timedelta(days=14)  # Due is in 14 days
         else:
             print("Sorry, the book is out of stock.")
 
     def return_book(self):
-        # Implement logic for returning a book
+        #To implement conditions for returning a book
         if self.book in self.patron.borrowed_books:
             self.book.quantity += 1
             self.patron.return_book(self.book)
@@ -76,7 +76,7 @@ class Transaction:
             print("This book was not borrowed by the patron.")
 
     def calculate_fine(self):
-        # Implement logic for calculating fines (if applicable)
+        # To calculate any possible fines
         pass
 
     def to_dict(self):
@@ -93,7 +93,7 @@ class Library:
         self.transactions = []
 
     def search_books(self, title):
-        # Implement search functionality
+        # Method to search for the book
         found_books = [book for book in self.books if title.lower() in book.title.lower()]
         return found_books
 
@@ -111,11 +111,11 @@ class Library:
 
     def handle_transaction(self, transaction):
         self.transactions.append(transaction)
-        # Implement logic for handling transactions
+        # For handling transactions
         transaction.checkout_book()  # Assuming it's a checkout transaction by default
 
     def generate_reports(self):
-        # Implement report generation functionality
+        # To generate report 
         pass
 
     def save_data(self, file_name):
@@ -129,14 +129,12 @@ class Library:
             json.dump(data, file)
 
     def load_data(self, file_name):
-        # Implement loading data from file
+        # load data from file
         with open(file_name, 'r') as file:
             data = json.load(file)
             self.books = [Book(**book_data) for book_data in data['books']]
             self.patrons = [Patron(**patron_data) for patron_data in data['patrons']]
             self.transactions = [Transaction(**transaction_data) for transaction_data in data['transactions']]
-
-    # Additional methods for managing patrons, transactions, and reports can be implemented here
 
 
 
